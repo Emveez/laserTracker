@@ -172,39 +172,39 @@ void trackProgram::mapCoordinate2DAC(){
 
 void trackProgram::trackBall(){
 
-		cropFrame = atmFrame(cropRect);
+	cropFrame = atmFrame(cropRect);
 
-		cv::GaussianBlur(cropFrame, gaussFilter, cv::Size(9, 9), 2, 2);
-		cv::cvtColor(gaussFilter, frame_HSV, cv::COLOR_BGR2HSV);
-		cv::inRange(frame_HSV, cv::Scalar(H_l, S_l, V_l), cv::Scalar(H_h, S_h, V_h), frame_threshold);
+	cv::GaussianBlur(cropFrame, gaussFilter, cv::Size(9, 9), 2, 2);
+	cv::cvtColor(gaussFilter, frame_HSV, cv::COLOR_BGR2HSV);
+	cv::inRange(frame_HSV, cv::Scalar(H_l, S_l, V_l), cv::Scalar(H_h, S_h, V_h), frame_threshold);
 
-		cv::dilate(frame_threshold, outImg, cv::Mat(), cv::Point(-1, -1), 2, 1, 1);
-		cv::erode(frame_threshold, outImg, cv::Mat(), cv::Point(-1, -1), 2, 1, 1);
+	cv::dilate(frame_threshold, outImg, cv::Mat(), cv::Point(-1, -1), 2, 1, 1);
+	cv::erode(frame_threshold, outImg, cv::Mat(), cv::Point(-1, -1), 2, 1, 1);
 
-		std::vector<std::vector<cv::Point> > contours;
-		cv::findContours(outImg, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
+	std::vector<std::vector<cv::Point> > contours;
+	cv::findContours(outImg, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
 
-	    cv::Mat contourImage(outImg.size(), CV_8UC3, cv::Scalar(0,0,0));
+    cv::Mat contourImage(outImg.size(), CV_8UC3, cv::Scalar(0,0,0));
 
-		int largest_area = 0;
-		int largest_contour_index = 0;
-		cv::Rect bounding_rect;
+	int largest_area = 0;
+	int largest_contour_index = 0;
+	cv::Rect bounding_rect;
 
-	    for (int idx = 0; idx < contours.size(); idx++) {
+    for (int idx = 0; idx < contours.size(); idx++) {
 
-	    	double area = cv::contourArea(contours[idx]); 
+    	double area = cv::contourArea(contours[idx]); 
 
-			if(area > largest_area) {
-				largest_area = area;
-				largest_contour_index = idx; //Store the index of largest contour
-				bounding_rect = cv::boundingRect(contours[idx]); // Find the bounding rectangle for biggest contour
-			}
-	    
-	    }
+		if(area > largest_area) {
+			largest_area = area;
+			largest_contour_index = idx; //Store the index of largest contour
+			bounding_rect = cv::boundingRect(contours[idx]); // Find the bounding rectangle for biggest contour
+		}
+    
+    }
 
-	    ballPosition = (bounding_rect.br() + bounding_rect.tl())*0.5; // Middle of rectangle
-	    cv::rectangle(cropFrame, bounding_rect, cv::Scalar(0, 255, 0));
-    	cv::circle(cropFrame, ballPosition, 3, cv::Scalar(0,0,255));
+    ballPosition = (bounding_rect.br() + bounding_rect.tl())*0.5; // Middle of rectangle
+    cv::rectangle(cropFrame, bounding_rect, cv::Scalar(0, 255, 0));
+	cv::circle(cropFrame, ballPosition, 3, cv::Scalar(0,0,255));
 
 }
 
