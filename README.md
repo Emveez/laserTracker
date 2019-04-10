@@ -5,10 +5,10 @@ Real time object tracking system that projects a laser beam on object using lase
 * Dilate/Erode to remove noise
 * Find contours with largest area
 * Draw bounding box and find middle coordinate
-# 
+## Demo tracking
 With this setup tracking can be done around 50 fps which can be seen in the following GIF, the red dot is the middle of the box
 ![Alt Text](https://media.giphy.com/media/kE34Vx0m7oQGILEsQp/giphy.gif)
 
-# Demo
+## Demo projecting laser beam
 Here is a demo when the laser is projected to the object
 ![Alt Text](https://media.giphy.com/media/dZWVwc7VbaYacBtd18/giphy.gif)
