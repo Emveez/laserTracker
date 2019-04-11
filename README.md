@@ -10,3 +10,9 @@ With this setup tracking can be done around 50 fps which can be seen in the foll
 Here is a demo when the laser is projected to the object
 <br />
 ![Alt Text](https://media.giphy.com/media/dZWVwc7VbaYacBtd18/giphy.gif)
+
+### Usage
+mkdir build
+cd build
+cmake ..
+make
